@@ -5,6 +5,8 @@ import { faCartPlus, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 
 import { formatCurrency, calcDiscount } from '../../../util/numberUtils';
 
+import './Product.scss';
+
 function Product({ product }) {
   return (
     <div className="card">
@@ -56,11 +58,7 @@ Product.propTypes = {
     image: string,
     basePrice: number,
     price: number.isRequired,
-    /*
     stocked: bool,
-    
-    
-    */
   }).isRequired,
 };
 
