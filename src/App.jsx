@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { string } from 'prop-types';
 
 import store from './store/store';
 import IdentityContext from './contexts/IdentityContext';
@@ -12,9 +13,10 @@ import NavBar from './components/NavBar/NavBar';
 import Logout from './modules/logout/Logout';
 import Users from './modules/users/Users';
 import Todos from './modules/todos/Todos';
+import ProtectedRoute from './components/ProtectedRoute';
 
-export function App() {
-  const [currentIdentity, setCurrentIdentity] = useState();
+export function App({ initialUser }) {
+  const [currentIdentity, setCurrentIdentity] = useState(initialUser);
 
   const identityContextValue = useMemo(
     () => ({
@@ -30,9 +32,9 @@ export function App() {
       <div className="container-fluid main">
         <Switch>
           <Route path="/login" component={Login} />
-          <Route path="/logout" component={Logout} />
-          <Route path="/users" component={Users} />
-          <Route path="/todos" component={Todos} />
+          <ProtectedRoute path="/logout" component={Logout} />
+          <ProtectedRoute path="/users" component={Users} />
+          <ProtectedRoute path="/todos" component={Todos} />
           <Route path="/" exact component={Home} />
           <Route component={NotFound} />
         </Switch>
@@ -50,5 +52,13 @@ function RuntimeApp() {
     </Provider>
   );
 }
+
+App.propTypes = {
+  initialUser: string,
+};
+
+App.defaultProps = {
+  initialUser: undefined,
+};
 
 export default hot(RuntimeApp);

@@ -27,8 +27,8 @@ jest.mock('./pages/NotFound', () => () => <div data-testid="page-not-found" />);
 jest.mock('./components/NavBar/NavBar', () => jest.fn().mockReturnValue(<div data-testid="navbar-mock" />));
 
 describe('App', () => {
-  function render(route) {
-    const renderResult = renderWithRouter(<App />, { route });
+  function render(route, initialUser = '') {
+    const renderResult = renderWithRouter(<App initialUser={initialUser} />, { route });
 
     const guardAgainstRenderingPageNotFound = () =>
       expect(renderResult.queryByTestId('page-not-found')).not.toBeInTheDocument();
@@ -77,7 +77,7 @@ describe('App', () => {
     });
 
     test('it renders the logout module on /logout ', () => {
-      const { getByTestId, guardAgainstRenderingPageNotFound } = render('/logout');
+      const { getByTestId, guardAgainstRenderingPageNotFound } = render('/logout', 'bob');
 
       getByTestId('logout-module');
 
@@ -85,7 +85,7 @@ describe('App', () => {
     });
 
     test('it renders the users module on /users ', () => {
-      const { getByTestId, guardAgainstRenderingPageNotFound } = render('/users');
+      const { getByTestId, guardAgainstRenderingPageNotFound } = render('/users', 'bob');
 
       getByTestId('users-module');
 
@@ -93,7 +93,7 @@ describe('App', () => {
     });
 
     test('it renders the todos module on /todos ', () => {
-      const { getByTestId, guardAgainstRenderingPageNotFound } = render('/todos');
+      const { getByTestId, guardAgainstRenderingPageNotFound } = render('/todos', 'bob');
 
       getByTestId('todos-module');
 
@@ -106,6 +106,39 @@ describe('App', () => {
       getByTestId('page-not-found');
 
       expect(queryByTestId('home-module')).not.toBeInTheDocument();
+    });
+
+    test('protectedRoute /todos renders login if not logged in', () => {
+      const { getByTestId, queryByTestId } = render('/todos', null);
+      getByTestId('login-module');
+      expect(queryByTestId('todos-module')).not.toBeInTheDocument();
+    });
+
+    test('protectedRoute /todos renders from path if logged in', () => {
+      const { queryByTestId } = render('/todos', 'bob');
+      expect(queryByTestId('todos-module')).toBeInTheDocument();
+    });
+
+    test('protectedRoute /logout renders login if not logged in', () => {
+      const { getByTestId, queryByTestId } = render('/logout', null);
+      getByTestId('login-module');
+      expect(queryByTestId('logout-module')).not.toBeInTheDocument();
+    });
+
+    test('protectedRoute /logout renders from path if logged in', () => {
+      const { queryByTestId } = render('/logout', 'bob');
+      expect(queryByTestId('logout-module')).toBeInTheDocument();
+    });
+
+    test('protectedRoute /users renders login if not logged in', () => {
+      const { getByTestId, queryByTestId } = render('/users', null);
+      getByTestId('login-module');
+      expect(queryByTestId('users-module')).not.toBeInTheDocument();
+    });
+
+    test('protectedRoute /users renders from path if logged in', () => {
+      const { queryByTestId } = render('/users', 'bob');
+      expect(queryByTestId('users-module')).toBeInTheDocument();
     });
   });
 });

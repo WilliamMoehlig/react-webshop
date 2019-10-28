@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
+import { object } from 'prop-types';
 import LoginForm from './components/LoginForm';
 import IdentityContext from '../../contexts/IdentityContext';
 
-function Login() {
+function Login({ location: { state } }) {
   const { current: currentIdentity, setCurrent: setCurrentIdentity } = useContext(IdentityContext);
   const [submitted, setSubmitted] = useState(false);
 
@@ -12,7 +13,8 @@ function Login() {
     setCurrentIdentity(username);
   };
 
-  if (currentIdentity) return <Redirect to="/" />;
+  const { from = { pathname: '/' } } = state || {};
+  if (currentIdentity) return <Redirect to={from} />;
 
   return (
     <div className="container">
@@ -32,5 +34,9 @@ function Login() {
     </div>
   );
 }
+
+Login.propTypes = {
+  location: object.isRequired,
+};
 
 export default Login;
