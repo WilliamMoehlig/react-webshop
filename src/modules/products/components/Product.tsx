@@ -1,13 +1,17 @@
 import React from 'react';
-import { shape, number, string, bool } from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartPlus, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { formatCurrency, calcDiscount } from '../../../util/numberUtils';
+import IProduct from '../../../models/Product';
 
 import './Product.scss';
 
-function Product({ product }) {
+export type ProductProps = {
+  product: IProduct;
+};
+
+const Product: React.FC<ProductProps> = ({ product }: ProductProps) => {
   return (
     <div className="card">
       <img src={product.image || 'https://dummyimage.com/300x300.png/dddddd/000000'} alt={product.title} />
@@ -47,19 +51,6 @@ function Product({ product }) {
       )}
     </div>
   );
-}
-
-Product.propTypes = {
-  product: shape({
-    id: number.isRequired,
-    title: string.isRequired,
-    desc: string,
-    sku: string.isRequired,
-    image: string,
-    basePrice: number,
-    price: number.isRequired,
-    stocked: bool,
-  }).isRequired,
 };
 
 export default Product;
