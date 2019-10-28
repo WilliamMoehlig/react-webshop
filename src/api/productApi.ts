@@ -4,7 +4,7 @@ import api from './api';
 
 import Product from '../models/Product';
 
-export async function getProducts({ limit = 12, page = 1, sort = 'title', order = 'asc' } = {}) {
+export async function getProducts({ limit = 12, page = 1, sort = 'title', order = 'asc' } = {}): Promise<Product[]> {
   const { data } = await api.get('/products', {
     params: {
       _limit: limit,
