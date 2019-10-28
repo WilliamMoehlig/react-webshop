@@ -1,0 +1,110 @@
+{
+  "name": "js-webpack-react-prettier",
+  "version": "1.0.0",
+  "description": "Jest Webpack React Prettier Template",
+  "scripts": {
+    "analyze": "webpack-bundle-analyzer dist/stats.json",
+    "build": "webpack --mode development",
+    "build:prod": "webpack --mode production",
+    "clean": "rimraf dist",
+    "lint": "eslint \"src/**/*.{js,ts,jsx,tsx}\"",
+    "start": "webpack-dev-server --open",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "bootstrap-scss": "^4.3.1",
+    "classnames": "^2.2.6",
+    "font-awesome": "^4.7.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-hot-loader": "^4.12.15",
+    "react-redux": "^7.1.1",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
+    "redux": "^3.7.2",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-typescript": "^7.6.0",
+    "@testing-library/jest-dom": "^4.1.2",
+    "@testing-library/react": "^9.3.0",
+    "@types/jest": "^24.0.19",
+    "@typescript-eslint/eslint-plugin": "^2.5.0",
+    "@typescript-eslint/parser": "^2.5.0",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
+    "babel-loader": "^8.0.6",
+    "babel-preset-airbnb": "^4.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.0.4",
+    "css-loader": "^3.2.0",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.20.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "file-loader": "^4.2.0",
+    "friendly-errors-webpack-plugin": "^1.7.0",
+    "history": "^4.10.1",
+    "html-webpack-plugin": "^3.2.0",
+    "husky": "^3.0.9",
+    "jest": "^24.9.0",
+    "jest-extended": "^0.11.2",
+    "jest-watch-typeahead": "^0.4.0",
+    "lint-staged": "^9.4.2",
+    "mini-css-extract-plugin": "^0.8.0",
+    "mockdate": "^2.0.5",
+    "nock": "^11.5.0",
+    "node-sass": "^4.12.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "prettier": "^1.18.2",
+    "rimraf": "^3.0.0",
+    "sass-loader": "^8.0.0",
+    "style-loader": "^1.0.0",
+    "terser-webpack-plugin": "^1.4.1",
+    "typescript": "^3.6.4",
+    "webpack": "^4.41.2",
+    "webpack-bundle-analyzer": "^3.6.0",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.9.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": "npm run lint -- --quiet"
+  },
+  "jest": {
+    "verbose": false,
+    "moduleNameMapper": {
+      "\\.((sa|sc|c)ss)$": "<rootDir>/src/__mocks__/styleMock.js"
+    },
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest.setup.js"
+    ],
+    "testURL": "http://localhost",
+    "transform": {
+      "^.+\\.(js|jsx|ts|tsx)?$": "babel-jest",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>src/__mocks__/file-transformer.js"
+    },
+    "watchPlugins": [
+      "jest-watch-typeahead/filename",
+      "jest-watch-typeahead/testname"
+    ]
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "presets": ["airbnb", "@babel/typescript"],
+  "plugins": ["react-hot-loader/babel", "@babel/plugin-proposal-class-properties"]
+}

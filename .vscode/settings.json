@@ -1,0 +1,5 @@
+{
+  // Make sure you don't forget to save when changing focus
+  "files.autoSave": "onFocusChange",
+  "scssFormatter.tabWidth": 2,
+}

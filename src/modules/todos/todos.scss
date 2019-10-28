@@ -1,0 +1,26 @@
+.todos {
+  h1 {
+    margin: 0;
+    padding-bottom: 20px;
+    text-align: center;
+  }
+  &__list {
+    padding: 20px 20px 10px 20px;
+  }
+  &__list-item {
+    border: none;
+    border-bottom: 1px solid #ddd;
+    &:last-child {
+      border-bottom: none;
+    }
+    .form-check {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  }
+  &__footer {
+    background-color: #f4fce8;
+    margin: 0 -20px -10px -20px;
+    padding: 10px 20px;
+  }
+}
