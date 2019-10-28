@@ -49,6 +49,15 @@ describe('Product component', () => {
     const svg = container.querySelector('button svg');
     expect(svg).toBeInTheDocument();
     expect(svg).toHaveClass('fa-cart-plus');
+
+    const desc = container.querySelector('.card-text');
+    expect(desc).not.toBeInTheDocument();
+
+    const moneyOld = container.querySelector('.money--old');
+    expect(moneyOld).not.toBeInTheDocument();
+
+    const discount = container.querySelector('.product-discount-label');
+    expect(discount).not.toBeInTheDocument();
   });
 
   it('should render a description if present', () => {
@@ -59,5 +68,59 @@ describe('Product component', () => {
     const { container } = renderComponent({ product });
     const desc = container.querySelector('.card-text');
     expect(desc).toHaveTextContent(product.desc);
+  });
+
+  it('should render a custom image if present', () => {
+    const product = {
+      ...generateProduct(),
+      image: 'http://example.com/100.jpg',
+    };
+    const { getByAltText } = renderComponent({ product });
+
+    const img = getByAltText(product.title);
+    expect(img).toHaveAttribute('src', product.image);
+  });
+
+  it('should render a base price and discount if present and higher than price', () => {
+    const product = {
+      ...generateProduct(),
+      price: 50,
+      basePrice: 100,
+    };
+    const { getByText, container } = renderComponent({ product });
+
+    const money = getByText(product.basePrice.toFixed(2).replace('.', ','));
+    expect(money).toHaveProperty('tagName', expect.stringMatching(/del/i));
+    expect(money.parentElement).toHaveClass('money', 'money--old');
+
+    const discount = container.querySelector('.product-discount-label');
+    expect(discount).toBeInTheDocument();
+    expect(discount).toHaveTextContent('-50%');
+  });
+
+  it('should not render a base price and discount if present and lower than or equal to price', () => {
+    const product = {
+      ...generateProduct(),
+      price: 50,
+      basePrice: 50,
+    };
+    const { container } = renderComponent({ product });
+
+    const moneyOld = container.querySelector('.money--old');
+    expect(moneyOld).not.toBeInTheDocument();
+
+    const discount = container.querySelector('.product-discount-label');
+    expect(discount).not.toBeInTheDocument();
+  });
+
+  it('should render in stock badge if product is stocked', () => {
+    const product = {
+      ...generateProduct(),
+      stocked: true,
+    };
+    const { getByText } = renderComponent({ product });
+
+    const stockBadge = getByText(/in stock/i);
+    expect(stockBadge).toHaveClass('badge', 'badge-success');
   });
 });
