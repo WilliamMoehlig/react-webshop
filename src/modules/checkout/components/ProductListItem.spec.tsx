@@ -8,4 +8,6 @@ describe('ProductList item ', () => {
     const { container } = render(<ProductListItem />);
     expect(container.querySelector('tr')).toBeInTheDocument();
   });
+
+  test('it has image, title, sku, price, quantity', () => {});
 });
