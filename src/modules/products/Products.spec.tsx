@@ -1,7 +1,7 @@
 import React from 'react';
 import { waitForDomChange, fireEvent, wait } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { renderWithRouter } from '../../../test/render-utils';
+import { renderWithReduxRouter } from '../../../test/render-utils';
 
 import Products from './Products';
 
@@ -25,7 +25,7 @@ describe('Products module', () => {
   }
 
   function renderComponent({ route = '/products' } = {}) {
-    const result = renderWithRouter(<Products />, { route });
+    const result = renderWithReduxRouter(<Products />, { route });
 
     return { ...result };
   }
