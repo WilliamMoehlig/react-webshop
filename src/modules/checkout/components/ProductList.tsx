@@ -1,7 +1,5 @@
 import React from 'react';
 
-function ProductList() {
-  return null;
+export default function ProductList() {
+  return <table role="table">blah</table>;
 }
-
-export default ProductList;
