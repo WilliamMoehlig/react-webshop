@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ProductListItem() {
+function ProductListItem({ product }) {
   return (
     <tr>
       <th scope="row" className="border-0">
@@ -32,7 +32,7 @@ function ProductListItem() {
           aria-label="Remove"
           style={{ verticalAlign: 'top' }}
         >
-          <i className="fa fa-trash"></i>
+          <i className="fa fa-trash" />
         </button>
       </td>
     </tr>
