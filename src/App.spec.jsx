@@ -143,12 +143,14 @@ describe('App', () => {
     });
 
     test('protectedRoute /checkout renders path if logged in', () => {
-      const { getByTestId } = render('/checkout', 'unclebob');
+      const { getByTestId, guardAgainstRenderingPageNotFound } = render('/checkout', 'unclebob');
+      guardAgainstRenderingPageNotFound();
       expect(getByTestId('checkout-module')).toBeInTheDocument();
     });
 
     test('protectedRoute /checkout does not render path if not logged in', () => {
-      const { getByTestId } = render('/checkout', null);
+      const { getByTestId, guardAgainstRenderingPageNotFound } = render('/checkout', null);
+      guardAgainstRenderingPageNotFound();
       expect(getByTestId('checkout-module')).not.toBeInTheDocument();
     });
   });
