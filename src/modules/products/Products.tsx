@@ -65,8 +65,8 @@ const Products: React.FC<ProductProps> = ({ limit = 12 }: ProductProps) => {
         <div className="col-12">
           <div className="row product-grid">
             {products.map(prod => (
-              <div className="col-3">
-                <Product key={prod.id} product={prod} />
+              <div className="col-3" key={prod.id}>
+                <Product product={prod} />
               </div>
             ))}
           </div>
