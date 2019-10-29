@@ -10,7 +10,7 @@ function NavBar() {
   const { current: currentUser } = useContext(IdentityContext);
 
   return (
-    <nav className="navbar navbar-light bg-light">
+    <nav className="navbar navbar-expand-sm navbar-light bg-light">
       <Link className="navbar-brand" to="/">
         <img src={jsLogo} alt="Bootcamp Logo" height={30} width={30} className="d-inline-block align-top" /> Bootcamp
       </Link>
@@ -18,6 +18,11 @@ function NavBar() {
         <li className="nav-item">
           <NavLink className="nav-link" to="/todos">
             Todos
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" to="/products">
+            Shop
           </NavLink>
         </li>
       </ul>

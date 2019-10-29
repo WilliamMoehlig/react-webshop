@@ -2,13 +2,16 @@ import { ADD_PRODUCT, DELETE_PRODUCT } from '../actionTypes';
 import { Action, ActionWithPayload } from '../../models/Action';
 import Product from '../../models/Product';
 
-function productReducer(previousState: Record<number, Product> = {}, action?: Action) {
+function productReducer(previousState: Record<number, Product & { count: number }> = {}, action?: Action) {
   switch (action && action.type) {
     case ADD_PRODUCT: {
       const { payload: product } = action as ActionWithPayload<Product>;
       return {
         ...previousState,
-        [product.id]: product,
+        [product.id]: {
+          ...product,
+          count: previousState[product.id] ? previousState[product.id].count + 1 : 1,
+        },
       };
     }
     case DELETE_PRODUCT: {
