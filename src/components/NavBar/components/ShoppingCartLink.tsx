@@ -1,5 +1,7 @@
+import React from 'react';
+
 function ShoppingCartLink() {
-  return null;
+  return <a>{'(0)'}</a>;
 }
 
 export default ShoppingCartLink;

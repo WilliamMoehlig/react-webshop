@@ -11,9 +11,9 @@ jest.mock('./components/NotificationCount', () =>
   jest.fn().mockReturnValue(<div data-testid="notification-count-mock" />)
 );
 
-jest.mock('./components/ShoppingCartLink', () => {
-  jest.fn().mockReturnValue(<div data-testid="shopping-cart-link-mock" />);
-});
+jest.mock('./components/ShoppingCartLink', () =>
+  jest.fn().mockReturnValue(<div data-testid="shopping-cart-link-mock" />)
+);
 
 describe('NavBar component', () => {
   function render(route, currentUser) {
