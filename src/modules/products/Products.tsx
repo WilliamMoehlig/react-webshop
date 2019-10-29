@@ -64,11 +64,11 @@ const Products: React.FC<ProductProps> = ({ limit = 12 }: ProductProps) => {
       <div className="row">
         <div className="col-12">
           <div className="row product-grid">
-            <div className="col-3">
-              {products.map(prod => (
+            {products.map(prod => (
+              <div className="col-3">
                 <Product key={prod.id} product={prod} />
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
