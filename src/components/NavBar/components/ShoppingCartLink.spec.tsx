@@ -6,8 +6,8 @@ import { getUtProduct } from '../../../../test/helper-objects';
 import ShoppingCartLink from './ShoppingCartLink';
 
 describe('Shopping cart notification link', () => {
-  function renderComponent(initialState = {}, route = '/') {
-    const result = renderWithReduxRouter(<ShoppingCartLink />, { route }, { initialState });
+  function renderComponent(initialState = {}, route = '/', className = '') {
+    const result = renderWithReduxRouter(<ShoppingCartLink className={className} />, { route }, { initialState });
 
     return {
       ...result,
@@ -56,5 +56,14 @@ describe('Shopping cart notification link', () => {
         pathname: '/checkout',
       })
     );
+  });
+
+  test('it passes a className prop as an attribute', () => {
+    const className = 'test';
+    const { container, debug } = renderComponent({}, '/', className);
+
+    const link = container.querySelector('div');
+
+    expect(link).toHaveClass(className);
   });
 });
