@@ -10,17 +10,17 @@ type ProductProps = {
 };
 
 const Products: React.FC<ProductProps> = ({ limit = 12 }: ProductProps) => {
-  const [state, setState] = useState();
+  const [pagedProducts, setPagedProducts] = useState();
 
   const { search } = useLocation();
 
-  const query = search.match(/page=([0-9]+)/);
-  const page = query ? +query[1] : 1;
+  const query = new URLSearchParams(search).get('page');
+  const page = query ? +query : 1;
 
   useEffect(() => {
     async function fetchProducts() {
       const productResponse = await getProducts({ page });
-      setState({
+      setPagedProducts({
         products: productResponse.products,
         total: productResponse.total,
       });
@@ -29,11 +29,11 @@ const Products: React.FC<ProductProps> = ({ limit = 12 }: ProductProps) => {
     fetchProducts();
   }, [page]);
 
-  if (!state) {
+  if (!pagedProducts) {
     return null;
   }
 
-  const { products, total } = state;
+  const { products, total } = pagedProducts;
   const maxPages = Math.ceil(total / limit);
 
   if (page < 1 || page > maxPages) {
