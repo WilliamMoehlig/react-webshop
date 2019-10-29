@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+import React from 'react';
 import 'jest-extended';
 import '@testing-library/jest-dom/extend-expect';
 import { enableNetConnect, disableNetConnect } from 'nock';
