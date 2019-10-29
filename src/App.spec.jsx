@@ -24,7 +24,7 @@ jest.mock('./modules/todos/Todos', () => () => <div data-testid="todos-module" /
 jest.mock('./modules/login/Login', () => () => <div data-testid="login-module" />);
 jest.mock('./modules/logout/Logout', () => () => <div data-testid="logout-module" />);
 jest.mock('./pages/NotFound', () => () => <div data-testid="page-not-found" />);
-jest.mock('./modules/checkout/checkout', () => () => <div data-testid="checkout-module" />);
+jest.mock('./modules/checkout/Checkout', () => () => <div data-testid="checkout-module" />);
 jest.mock('./components/NavBar/NavBar', () => jest.fn().mockReturnValue(<div data-testid="navbar-mock" />));
 
 describe('App', () => {
@@ -149,9 +149,10 @@ describe('App', () => {
     });
 
     test('protectedRoute /checkout does not render path if not logged in', () => {
-      const { getByTestId, guardAgainstRenderingPageNotFound } = render('/checkout', null);
+      const { queryByTestId, guardAgainstRenderingPageNotFound } = render('/checkout', null);
       guardAgainstRenderingPageNotFound();
-      expect(getByTestId('checkout-module')).not.toBeInTheDocument();
+
+      expect(queryByTestId('checkout-module')).not.toBeInTheDocument();
     });
   });
 });
