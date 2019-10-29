@@ -22,7 +22,7 @@ function NavBar() {
         </li>
       </ul>
 
-      <ShoppingCartLink />
+      <ShoppingCartLink className="mr-3" />
 
       {currentUser ? (
         <>

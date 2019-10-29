@@ -1,9 +1,9 @@
 import React from 'react';
-import { renderWithRedux, renderWithReduxRouter } from '../../../../test/render-utils';
-import { getUtProduct, getPellentesqueProduct } from '../../../../test/helper-objects';
+import { fireEvent } from '@testing-library/react';
+import { renderWithReduxRouter } from '../../../../test/render-utils';
+import { getUtProduct } from '../../../../test/helper-objects';
 
 import ShoppingCartLink from './ShoppingCartLink';
-import { fireEvent } from '@testing-library/dom';
 
 describe('Shopping cart notification link', () => {
   function renderComponent(initialState = {}, route = '/') {
@@ -13,6 +13,7 @@ describe('Shopping cart notification link', () => {
       ...result,
     };
   }
+
   test('it renders with the text 0', () => {
     const { container, getByText } = renderComponent();
 
@@ -45,7 +46,7 @@ describe('Shopping cart notification link', () => {
   });
 
   test('it navigates to /checkout after clicking', () => {
-    const { history, container } = renderComponent('');
+    const { history, container } = renderComponent();
 
     const link = container.querySelector('a');
     fireEvent.click(link);
