@@ -19,6 +19,11 @@ function NavBar() {
             Todos
           </NavLink>
         </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" to="/products">
+            Shop
+          </NavLink>
+        </li>
       </ul>
       {currentUser ? (
         <>

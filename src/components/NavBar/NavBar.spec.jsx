@@ -85,6 +85,27 @@ describe('NavBar component', () => {
     expect(todosNavLink).toHaveClass('active');
   });
 
+  test('it renders a navlink to products', () => {
+    const { getComponent, history } = render();
+
+    const { getByText } = within(getComponent());
+
+    const productsNavLink = getByText(/shop/i);
+    expect(productsNavLink).toHaveClass('nav-link');
+    expect(productsNavLink).not.toHaveClass('active');
+
+    fireEvent.click(productsNavLink);
+
+    expect(history).toHaveProperty(
+      'location',
+      toBeALocation({
+        pathname: '/products',
+        state: null,
+      })
+    );
+    expect(productsNavLink).toHaveClass('active');
+  });
+
   describe('when anonymous', () => {
     test('it renders a login link', () => {
       const { getComponent, history, queryByText } = render('/not-home');
