@@ -24,6 +24,7 @@ jest.mock('./modules/todos/Todos', () => () => <div data-testid="todos-module" /
 jest.mock('./modules/login/Login', () => () => <div data-testid="login-module" />);
 jest.mock('./modules/logout/Logout', () => () => <div data-testid="logout-module" />);
 jest.mock('./pages/NotFound', () => () => <div data-testid="page-not-found" />);
+jest.mock('./modules/checkout/checkout', () => () => <div data-testid="checkout-module" />);
 jest.mock('./components/NavBar/NavBar', () => jest.fn().mockReturnValue(<div data-testid="navbar-mock" />));
 
 describe('App', () => {
@@ -139,6 +140,16 @@ describe('App', () => {
     test('protectedRoute /users renders from path if logged in', () => {
       const { queryByTestId } = render('/users', 'bob');
       expect(queryByTestId('users-module')).toBeInTheDocument();
+    });
+
+    test('protectedRoute /checkout renders path if logged in', () => {
+      const { getByTestId } = render('/checkout', 'unclebob');
+      expect(getByTestId('checkout-module')).toBeInTheDocument();
+    });
+
+    test('protectedRoute /checkout does not render path if not logged in', () => {
+      const { getByTestId } = render('/checkout', null);
+      expect(getByTestId('checkout-module')).not.toBeInTheDocument();
     });
   });
 });
