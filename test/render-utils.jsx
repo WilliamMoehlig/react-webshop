@@ -41,3 +41,29 @@ export function renderWithRedux(ui, { initialState = {}, store = createStore(roo
     store,
   };
 }
+
+export function renderWithReduxRouter(
+  ui,
+  {
+    route = '/',
+    history = createMemoryHistory({
+      initialEntries: [route],
+    }),
+  } = {},
+  { initialState = {}, store = createStore(rootReducer, initialState) } = {}
+) {
+  // eslint-disable-next-line react/prop-types
+  const wrapper = ({ children }) => {
+    return (
+      <Provider store={store}>
+        <Router history={history}>{children}</Router>
+      </Provider>
+    );
+  };
+
+  return {
+    ...renderRtl(ui, { wrapper }),
+    history,
+    store,
+  };
+}

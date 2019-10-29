@@ -4,6 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 import jsLogo from '../../public/images/js-logo.png';
 import IdentityContext from '../../contexts/IdentityContext';
 import NotificationCount from './components/NotificationCount';
+import ShoppingCartLink from './components/ShoppingCartLink';
 
 function NavBar() {
   const { current: currentUser } = useContext(IdentityContext);
@@ -25,6 +26,9 @@ function NavBar() {
           </NavLink>
         </li>
       </ul>
+
+      <ShoppingCartLink className="mr-3" />
+
       {currentUser ? (
         <>
           <NotificationCount currentIdentity={currentUser} />

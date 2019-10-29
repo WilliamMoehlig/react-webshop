@@ -11,6 +11,10 @@ jest.mock('./components/NotificationCount', () =>
   jest.fn().mockReturnValue(<div data-testid="notification-count-mock" />)
 );
 
+jest.mock('./components/ShoppingCartLink', () =>
+  jest.fn().mockReturnValue(<div data-testid="shopping-cart-link-mock" />)
+);
+
 describe('NavBar component', () => {
   function render(route, currentUser) {
     const value = {
@@ -124,6 +128,11 @@ describe('NavBar component', () => {
       const { queryByTestId } = render('/not-home');
       expect(queryByTestId('notification-count-mock')).toBeNull();
     });
+
+    test('it renders a shopping cart link', () => {
+      const { queryByTestId } = render('/');
+      expect(queryByTestId('shopping-cart-link-mock')).toBeInTheDocument();
+    });
   });
 
   describe('when authenticated', () => {
@@ -154,6 +163,11 @@ describe('NavBar component', () => {
         },
         {}
       );
+    });
+
+    test('it renders a shopping cart link', () => {
+      const { queryByTestId } = render('/');
+      expect(queryByTestId('shopping-cart-link-mock')).toBeInTheDocument();
     });
   });
 });
