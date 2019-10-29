@@ -41,13 +41,18 @@ describe('Product API', () => {
       fakeApi()
         .get('/products')
         .query({ ...getDefaultParameters() })
-        .reply(200, response);
+        .reply(200, response, {
+          'x-total-count': '100',
+        });
 
       const returnedProducts = response.map(product => product as Product);
 
-      const products = await getProducts();
+      const res = await getProducts();
 
-      expect(products).toStrictEqual(returnedProducts);
+      expect(res).toStrictEqual({
+        products: returnedProducts,
+        total: 100,
+      });
     });
 
     it('should call the api with the default parameters', async () => {

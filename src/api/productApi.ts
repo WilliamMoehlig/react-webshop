@@ -4,8 +4,11 @@ import api from './api';
 
 import Product from '../models/Product';
 
-export async function getProducts({ limit = 12, page = 1, sort = 'title', order = 'asc' } = {}): Promise<Product[]> {
-  const { data } = await api.get('/products', {
+export async function getProducts({ limit = 12, page = 1, sort = 'title', order = 'asc' } = {}): Promise<{
+  products: Product[];
+  total: number;
+}> {
+  const { data, headers } = await api.get('/products', {
     params: {
       _limit: limit,
       _page: page,
@@ -13,5 +16,6 @@ export async function getProducts({ limit = 12, page = 1, sort = 'title', order 
       _order: order,
     },
   });
-  return data as Product[];
+
+  return { products: data as Product[], total: Number(headers['x-total-count']) };
 }
