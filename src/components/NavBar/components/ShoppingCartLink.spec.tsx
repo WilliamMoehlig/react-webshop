@@ -1,14 +1,12 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { renderWithRedux } from '../../../../test/render-utils.jsx';
+import { renderWithRedux } from '../../../../test/render-utils';
 import { getUtProduct, getPellentesqueProduct } from '../../../../test/helper-objects';
 
 import ShoppingCartLink from './ShoppingCartLink';
-import productReducer from '../../../store/reducers/productReducer.js';
 
 describe('Shopping cart notification link', () => {
-  function renderComponent(initState = {}) {
-    const result = renderWithRedux(<ShoppingCartLink />, { initialState: initState });
+  function renderComponent(initialState = {}) {
+    const result = renderWithRedux(<ShoppingCartLink />, { initialState });
 
     return {
       ...result,
@@ -27,7 +25,9 @@ describe('Shopping cart notification link', () => {
   test('it adds one to cart when product is added', () => {
     const utProduct = getUtProduct();
     const initState = {
-      [utProduct.id]: utProduct,
+      cartProducts: {
+        [utProduct.id]: utProduct,
+      },
     };
 
     const { getByText } = renderComponent(initState);
