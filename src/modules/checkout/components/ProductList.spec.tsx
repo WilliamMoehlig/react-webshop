@@ -1,8 +1,8 @@
 import React from 'react';
-import '@testing-library/dom';
+import { within } from '@testing-library/react';
+
 import { renderWithReduxRouter } from '../../../../test/render-utils';
 import ProductList from './ProductList';
-import { getByText } from '@testing-library/dom';
 
 describe('ProductList', () => {
   const renderComponent = () => {
@@ -24,11 +24,11 @@ describe('ProductList', () => {
   test('table head has product, price, quantity and remove', () => {
     const { getTableHeader } = renderComponent();
 
-    const productTableHeader = getTableHeader();
+    const { getByText } = within(getTableHeader());
 
-    expect(getByText(productTableHeader, /product/i)).toBeInTheDocument();
-    expect(getByText(productTableHeader, /price/i)).toBeInTheDocument();
-    expect(getByText(productTableHeader, /quantity/i)).toBeInTheDocument();
-    expect(getByText(productTableHeader, /remove/i)).toBeInTheDocument();
+    expect(getByText(/product/i)).toBeInTheDocument();
+    expect(getByText(/price/i)).toBeInTheDocument();
+    expect(getByText(/quantity/i)).toBeInTheDocument();
+    expect(getByText(/remove/i)).toBeInTheDocument();
   });
 });
