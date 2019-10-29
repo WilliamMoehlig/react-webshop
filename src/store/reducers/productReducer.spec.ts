@@ -44,6 +44,7 @@ describe('Product reducer', () => {
     expect(state).toEqual({
       [product.id]: product,
     });
+    expect(initialState).toEqual({});
   });
 
   test('it reduces ADD_PRODUCT with existing state', () => {
@@ -76,5 +77,6 @@ describe('Product reducer', () => {
     expect(state).toEqual({
       [ut.id]: ut,
     });
+    expect(initialState).toEqual({ [ut.id]: ut, [pellentesque.id]: pellentesque });
   });
 });
