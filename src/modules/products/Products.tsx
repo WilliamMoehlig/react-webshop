@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, Redirect } from 'react-router-dom';
+import { useLocation, Redirect, Link } from 'react-router-dom';
 import classNames from 'classnames';
 
 import Product from './components/Product';
@@ -46,18 +46,18 @@ const Products: React.FC<ProductProps> = ({ limit = 12 }: ProductProps) => {
       <div className="row mb-2">
         <div className="col-12">
           <nav className="d-flex justify-content-between" aria-label="Product Page navigation">
-            <a
+            <Link
+              to={`/products?page=${page - 1}`}
               className={classNames('btn btn-sm btn-outline-primary', { disabled: page <= 1 })}
-              href={`/products?page=${page - 1}`}
             >
               Previous
-            </a>
-            <a
+            </Link>
+            <Link
+              to={`/products?page=${page + 1}`}
               className={classNames('btn btn-sm btn-outline-primary', { disabled: page >= maxPages })}
-              href={`/products?page=${page + 1}`}
             >
               Next
-            </a>
+            </Link>
           </nav>
         </div>
       </div>

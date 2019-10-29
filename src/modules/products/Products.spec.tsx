@@ -1,11 +1,11 @@
 import React from 'react';
-import { waitForDomChange } from '@testing-library/react';
+import { waitForDomChange, fireEvent, wait } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { renderWithRouter } from '../../../test/render-utils';
 
 import Products from './Products';
 
-import { getProducts, ProductsResponse } from '../../api/productApi';
+import { getProducts } from '../../api/productApi';
 import IProduct from '../../models/Product';
 
 jest.mock('../../api/productApi');
@@ -157,5 +157,55 @@ describe('Products module', () => {
         pathname: '/404',
       })
     );
+  });
+
+  it('should navigate to the previous page if previous button is clicked', async () => {
+    const products = generateProducts();
+
+    const mock = getProducts as jest.Mock;
+    mock.mockResolvedValue({
+      products,
+      total: products.length * 2,
+    });
+
+    const { getByText, history } = renderComponent({ route: '/products?page=2' });
+
+    await wait(() => {
+      const prev = getByText(/previous/i);
+      fireEvent.click(prev);
+
+      expect(history).toHaveProperty(
+        'location',
+        toBeALocation({
+          pathname: '/products',
+          search: '?page=1',
+        })
+      );
+    });
+  });
+
+  it('should navigate to the next page if next button is clicked', async () => {
+    const products = generateProducts();
+
+    const mock = getProducts as jest.Mock;
+    mock.mockResolvedValue({
+      products,
+      total: products.length * 2,
+    });
+
+    const { getByText, history } = renderComponent({ route: '/products?page=1' });
+
+    await wait(() => {
+      const next = getByText(/next/i);
+      fireEvent.click(next);
+
+      expect(history).toHaveProperty(
+        'location',
+        toBeALocation({
+          pathname: '/products',
+          search: '?page=2',
+        })
+      );
+    });
   });
 });
