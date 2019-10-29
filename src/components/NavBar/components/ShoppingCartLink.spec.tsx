@@ -1,12 +1,13 @@
 import React from 'react';
-import { renderWithRedux } from '../../../../test/render-utils';
+import { renderWithRedux, renderWithReduxRouter } from '../../../../test/render-utils';
 import { getUtProduct, getPellentesqueProduct } from '../../../../test/helper-objects';
 
 import ShoppingCartLink from './ShoppingCartLink';
+import { fireEvent } from '@testing-library/dom';
 
 describe('Shopping cart notification link', () => {
-  function renderComponent(initialState = {}) {
-    const result = renderWithRedux(<ShoppingCartLink />, { initialState });
+  function renderComponent(initialState = {}, route = '/') {
+    const result = renderWithReduxRouter(<ShoppingCartLink />, { route }, { initialState });
 
     return {
       ...result,
@@ -34,5 +35,25 @@ describe('Shopping cart notification link', () => {
     const cartCount = getByText(/(1)/);
 
     expect(cartCount).toBeInTheDocument();
+  });
+
+  test('it renders an icon', () => {
+    const { container } = renderComponent();
+    const icon = container.querySelector('i');
+    expect(icon).toBeInTheDocument();
+    expect(icon).toHaveClass('fa', 'fa-shopping-cart');
+  });
+
+  test('it navigates to /checkout after clicking', () => {
+    const { history, container } = renderComponent('');
+
+    const link = container.querySelector('a');
+    fireEvent.click(link);
+
+    expect(history.location).toEqual(
+      expect.objectContaining({
+        pathname: '/checkout',
+      })
+    );
   });
 });
