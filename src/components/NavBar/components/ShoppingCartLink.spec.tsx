@@ -60,7 +60,7 @@ describe('Shopping cart notification link', () => {
 
   test('it passes a className prop as an attribute', () => {
     const className = 'test';
-    const { container, debug } = renderComponent({}, '/', className);
+    const { container } = renderComponent({}, '/', className);
 
     const link = container.querySelector('div');
 
