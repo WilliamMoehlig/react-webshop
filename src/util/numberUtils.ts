@@ -1,5 +1,5 @@
 export function formatCurrency(number: number): string {
-  return number.toFixed(2).replace('.', ',');
+  return (Math.round(number * 100) / 100).toFixed(2).replace('.', ',');
 }
 
 export function calcDiscount(base: number, discounted: number): number {
