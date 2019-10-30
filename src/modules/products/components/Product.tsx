@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { addProduct } from '../../../store/actions/productActions';
 import { formatCurrency, calcDiscount } from '../../../util/numberUtils';
 import IProduct from '../../../models/Product';
+import Button from '../../../components/Button';
 
 import './Product.scss';
 
@@ -50,9 +51,9 @@ const Product: React.FC<ProductProps> = ({ product }: ProductProps) => {
         </h5>
       </li>
       <div className="card-body">
-        <button type="button" className="btn btn-primary btn-block" onClick={addToCartHandler}>
+        <Button className="btn btn-primary btn-block" disabled={!product.stocked} onClick={addToCartHandler}>
           <FontAwesomeIcon icon={faCartPlus} /> ADD TO CART
-        </button>
+        </Button>
       </div>
       {product.basePrice && product.basePrice > product.price && (
         <span className="product-discount-label">-{calcDiscount(product.basePrice, product.price)}%</span>
