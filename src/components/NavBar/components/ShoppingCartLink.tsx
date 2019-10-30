@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { State } from '../../../models/State';
-import Product from '../../../models/Product';
+import ProductCollection from '../../../models/ProductCollection';
 
 type ShoppingCartLinkProps = {
   className?: string;

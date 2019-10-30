@@ -7,6 +7,7 @@ interface ProductListItemProps {
   quantity: number;
   onButtonClicked: (id) => void;
 }
+
 function ProductListItem({ product, quantity, onButtonClicked }: ProductListItemProps) {
   return (
     <tr>

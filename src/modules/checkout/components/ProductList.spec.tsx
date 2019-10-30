@@ -1,12 +1,14 @@
 import React from 'react';
-import { within } from '@testing-library/react';
+import { within, fireEvent } from '@testing-library/react';
 
-import { renderWithReduxRouter } from '../../../../test/render-utils';
+import { renderWithRedux } from '../../../../test/render-utils';
 import ProductList from './ProductList';
 
+import { getUtProduct, getPellentesqueProduct } from '../../../../test/helper-objects';
+
 describe('ProductList', () => {
-  const renderComponent = () => {
-    const result = renderWithReduxRouter(<ProductList />);
+  const renderComponent = ({ initialState = {} } = {}) => {
+    const result = renderWithRedux(<ProductList />, { initialState });
     return {
       ...result,
       getTableHeader: () => result.container.querySelector('thead'),
@@ -30,5 +32,49 @@ describe('ProductList', () => {
     expect(getByText(/price/i)).toBeInTheDocument();
     expect(getByText(/quantity/i)).toBeInTheDocument();
     expect(getByText(/remove/i)).toBeInTheDocument();
+  });
+
+  it('renders the list of products', () => {
+    const ut = getUtProduct();
+    const pellentesque = getPellentesqueProduct();
+
+    const { queryByAltText } = renderComponent({
+      initialState: {
+        cartProducts: {
+          [ut.id]: {
+            ...ut,
+            count: 2,
+          },
+          [pellentesque.id]: {
+            ...pellentesque,
+            count: 3,
+          },
+        },
+      },
+    });
+
+    expect(queryByAltText(ut.title)).toBeInTheDocument();
+    expect(queryByAltText(pellentesque.title)).toBeInTheDocument();
+  });
+
+  it('deletes an item when the remove button is clicked', () => {
+    const product = getUtProduct();
+
+    const { getByLabelText, queryByAltText } = renderComponent({
+      initialState: {
+        cartProducts: {
+          [product.id]: {
+            ...product,
+            count: 2,
+          },
+        },
+      },
+    });
+
+    const button = getByLabelText(/remove/i);
+
+    fireEvent.click(button);
+
+    expect(queryByAltText(product.title)).not.toBeInTheDocument();
   });
 });
