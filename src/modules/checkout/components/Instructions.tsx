@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Instructions() {
+const Instructions: React.FC = () => {
   return (
     <>
       <div className="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Instructions for seller</div>
@@ -12,6 +12,6 @@ function Instructions() {
       </div>
     </>
   );
-}
+};
 
 export default Instructions;
