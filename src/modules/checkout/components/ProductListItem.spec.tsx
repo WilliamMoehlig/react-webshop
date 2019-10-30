@@ -18,28 +18,31 @@ describe('ProductList item ', () => {
     };
   };
 
-  test('it renders', () => {
-    const { container } = renderComponent();
+  test('it renders by default', () => {
+    const product = getUtProduct();
+    const { container, getByLabelText, getByAltText } = renderComponent(product);
 
     const tableRow = container.querySelector('tr');
 
     expect(tableRow).toBeInTheDocument();
-  });
-
-  test('it has a product as property and renders image, title, sku, price', () => {
-    const product = getUtProduct();
-    const { getByAltText, container } = renderComponent(product);
 
     const imageAlt = getByAltText(product.title);
-    const titleHeaderTag = container.querySelector('h5').innerHTML;
-    const skuSpan = container.getElementsByTagName('span')[0];
-    const priceSpan = container.getElementsByClassName('money')[0];
-
     expect(imageAlt).toBeInTheDocument();
     expect(imageAlt.getAttribute('src')).toBe(product.image);
+
+    const titleHeaderTag = container.querySelector('h5').innerHTML;
     expect(titleHeaderTag).toBe(product.title);
+
+    const skuSpan = container.getElementsByTagName('span')[0];
     expect(skuSpan.innerHTML).toBe(product.sku);
+
+    const priceSpan = container.getElementsByClassName('money')[0];
     expect(priceSpan.innerHTML).toContain(formatCurrency(product.price));
+
+    const button = getByLabelText(/remove/i);
+    const iTag = button.querySelector('i');
+    expect(iTag).toBeInTheDocument();
+    expect(iTag).toHaveClass('fa fa-trash');
   });
 
   test('it gets quantity as a property and renders it', () => {
