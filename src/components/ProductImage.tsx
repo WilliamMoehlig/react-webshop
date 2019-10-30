@@ -3,7 +3,7 @@
 import React from 'react';
 import Product from '../models/Product';
 
-type ProductImageProps = React.ButtonHTMLAttributes<HTMLImageElement> & {
+type ProductImageProps = React.ImgHTMLAttributes<HTMLImageElement> & {
   product: Product;
 };
 
