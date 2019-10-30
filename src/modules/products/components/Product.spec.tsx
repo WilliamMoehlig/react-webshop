@@ -126,7 +126,10 @@ describe('Product component', () => {
   });
 
   it('should be able to add a product on click to state (redux)', () => {
-    const product = generateProduct();
+    const product = {
+      ...generateProduct(),
+      stocked: true,
+    };
 
     const { getByRole, store } = renderComponent({ product });
     const button = getByRole('button');
@@ -135,5 +138,21 @@ describe('Product component', () => {
     fireEvent.click(button);
 
     expect(store.getState()).toHaveProperty('cartProducts', { [product.id]: { ...product, count: 2 } });
+  });
+
+  it("should not add a product if it's out of stock", () => {
+    const product: IProduct = {
+      ...generateProduct(),
+      stocked: false,
+    };
+
+    const { getByRole, store } = renderComponent({ product });
+
+    const button = getByRole('button');
+    expect(button).toBeDisabled();
+
+    fireEvent.click(button);
+
+    expect(store.getState()).not.toHaveProperty('cartProducts', { [product.id]: { ...product, count: 1 } });
   });
 });
