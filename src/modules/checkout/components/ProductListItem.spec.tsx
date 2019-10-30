@@ -63,6 +63,6 @@ describe('ProductList item ', () => {
     const button = getByLabelText(/remove/i);
 
     fireEvent.click(button);
-    expect(mockFunction).toBeCalled();
+    expect(mockFunction).toHaveBeenCalled();
   });
 });
