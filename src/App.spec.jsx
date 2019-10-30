@@ -21,6 +21,7 @@ function MockHome() {
 jest.mock('./modules/home/Home', () => () => <MockHome />);
 jest.mock('./modules/users/Users', () => () => <div data-testid="users-module" />);
 jest.mock('./modules/todos/Todos', () => () => <div data-testid="todos-module" />);
+jest.mock('./modules/products/Products', () => () => <div data-testid="products-module" />);
 jest.mock('./modules/login/Login', () => () => <div data-testid="login-module" />);
 jest.mock('./modules/logout/Logout', () => () => <div data-testid="logout-module" />);
 jest.mock('./pages/NotFound', () => () => <div data-testid="page-not-found" />);
@@ -97,6 +98,14 @@ describe('App', () => {
       const { getByTestId, guardAgainstRenderingPageNotFound } = render('/todos', 'bob');
 
       getByTestId('todos-module');
+
+      guardAgainstRenderingPageNotFound();
+    });
+
+    test('it renders the products module on /products ', () => {
+      const { getByTestId, guardAgainstRenderingPageNotFound } = render('/products');
+
+      getByTestId('products-module');
 
       guardAgainstRenderingPageNotFound();
     });

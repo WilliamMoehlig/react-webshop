@@ -1,7 +1,9 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch } from 'react-redux';
 
+import { addProduct } from '../../../store/actions/productActions';
 import { formatCurrency, calcDiscount } from '../../../util/numberUtils';
 import IProduct from '../../../models/Product';
 
@@ -12,6 +14,12 @@ export type ProductProps = {
 };
 
 const Product: React.FC<ProductProps> = ({ product }: ProductProps) => {
+  const dispatch = useDispatch();
+
+  const addToCartHandler = () => {
+    dispatch(addProduct(product));
+  };
+
   return (
     <div className="card">
       <img src={product.image || 'https://dummyimage.com/300x300.png/dddddd/000000'} alt={product.title} />
@@ -42,7 +50,7 @@ const Product: React.FC<ProductProps> = ({ product }: ProductProps) => {
         </h5>
       </li>
       <div className="card-body">
-        <button type="button" className="btn btn-primary btn-block">
+        <button type="button" className="btn btn-primary btn-block" onClick={addToCartHandler}>
           <FontAwesomeIcon icon={faCartPlus} /> ADD TO CART
         </button>
       </div>

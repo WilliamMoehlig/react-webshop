@@ -15,6 +15,7 @@ import Users from './modules/users/Users';
 import Todos from './modules/todos/Todos';
 import ProtectedRoute from './components/ProtectedRoute';
 import Checkout from './modules/checkout/Checkout';
+import Products from './modules/products/Products';
 
 export function App({ initialUser }) {
   const [currentIdentity, setCurrentIdentity] = useState(initialUser);
@@ -37,6 +38,7 @@ export function App({ initialUser }) {
           <ProtectedRoute path="/users" component={Users} />
           <ProtectedRoute path="/todos" component={Todos} />
           <ProtectedRoute path="/checkout" component={Checkout} />
+          <Route path="/products" component={Products} />
           <Route path="/" exact component={Home} />
           <Route component={NotFound} />
         </Switch>
