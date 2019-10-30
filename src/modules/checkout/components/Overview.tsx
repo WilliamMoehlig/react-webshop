@@ -1,14 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { State } from '../../../models/State';
+import { AppState } from '../../../models/AppState';
 import { formatCurrency } from '../../../util/numberUtils';
 import ProductCollection from '../../../models/ProductCollection';
 
 const SHIPPING_AND_HANDLING_COSTS = 10;
 
 const Overview: React.FC = () => {
-  const cartProducts = useSelector((state: State<ProductCollection>) => Object.values(state.cartProducts));
+  const cartProducts = useSelector((state: AppState) => Object.values(state.cartProducts));
 
   const subtotal = cartProducts.reduce(
     (acc: number, product: ProductCollection) => acc + product.price * product.count,
