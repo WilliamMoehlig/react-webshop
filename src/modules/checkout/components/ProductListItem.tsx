@@ -8,7 +8,11 @@ interface ProductListItemProps {
   onButtonClicked: (id) => void;
 }
 
-function ProductListItem({ product, quantity, onButtonClicked }: ProductListItemProps) {
+const ProductListItem: React.FC<ProductListItemProps> = ({
+  product,
+  quantity,
+  onButtonClicked,
+}: ProductListItemProps) => {
   return (
     <tr>
       <th scope="row" className="border-0">
@@ -41,6 +45,6 @@ function ProductListItem({ product, quantity, onButtonClicked }: ProductListItem
       </td>
     </tr>
   );
-}
+};
 
 export default ProductListItem;
