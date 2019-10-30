@@ -20,10 +20,7 @@ const Products: React.FC<ProductsProps> = ({ limit = 12 }: ProductsProps) => {
   useEffect(() => {
     async function fetchProducts() {
       const productResponse = await getProducts({ page });
-      setPagedProducts({
-        products: productResponse.products,
-        total: productResponse.total,
-      });
+      setPagedProducts(productResponse);
     }
 
     fetchProducts();
