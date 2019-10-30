@@ -18,24 +18,33 @@ describe('Shopping cart notification link', () => {
     const { container, getByText } = renderComponent();
 
     const cart = container.getElementsByTagName('a')[0];
-    const cartCount = getByText(/(0)/);
+    getByText(/(0)/);
 
     expect(cart).toBeInTheDocument();
-    expect(cartCount).toBeInTheDocument();
   });
 
   test('it adds one to cart when product is added', () => {
     const utProduct = getUtProduct();
     const initState = {
       cartProducts: {
-        [utProduct.id]: utProduct,
+        [utProduct.id]: { ...utProduct, count: 1 },
       },
     };
 
     const { getByText } = renderComponent(initState);
-    const cartCount = getByText(/(1)/);
+    getByText(/(1)/);
+  });
 
-    expect(cartCount).toBeInTheDocument();
+  test('it displays the total amount of products in the cart', () => {
+    const utProduct = getUtProduct();
+    const initState = {
+      cartProducts: {
+        [utProduct.id]: { ...utProduct, count: 2 },
+      },
+    };
+
+    const { getByText } = renderComponent(initState);
+    getByText(/(2)/);
   });
 
   test('it renders an icon', () => {

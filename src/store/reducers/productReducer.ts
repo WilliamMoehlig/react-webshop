@@ -1,8 +1,9 @@
 import { ADD_PRODUCT, DELETE_PRODUCT } from '../actionTypes';
 import { Action, ActionWithPayload } from '../../models/Action';
 import Product from '../../models/Product';
+import ProductCollection from '../../models/ProductCollection';
 
-function productReducer(previousState: Record<number, Product & { count: number }> = {}, action?: Action) {
+function productReducer(previousState: Record<number, ProductCollection> = {}, action?: Action) {
   switch (action && action.type) {
     case ADD_PRODUCT: {
       const { payload: product } = action as ActionWithPayload<Product>;
@@ -16,6 +17,7 @@ function productReducer(previousState: Record<number, Product & { count: number 
     }
     case DELETE_PRODUCT: {
       const { payload: id } = action as ActionWithPayload<number>;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { [id]: _, ...wantToKeep } = previousState;
 
       return {
