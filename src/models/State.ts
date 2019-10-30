@@ -1,7 +1,5 @@
-import Product from './Product';
+import ProductCollection from './ProductCollection';
 
-export interface State {
-  todos?: Record<number, any>;
-  notifications?: Record<number, any>;
-  cartProducts?: Record<number, Product>;
+export interface State<T> {
+  [propName: string]: Record<number, T>;
 }
