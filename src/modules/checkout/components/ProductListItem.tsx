@@ -21,7 +21,7 @@ function ProductListItem({ product, quantity, onButtonClicked }: ProductListItem
       </th>
       <td className="border-0 align-middle">
         <strong>
-          <span className="money">€&nbsp;{formatCurrency(product.price)}</span>
+          <span className="money">{formatCurrency(product.price)}</span>
         </strong>
       </td>
       <td className="border-0 align-middle">

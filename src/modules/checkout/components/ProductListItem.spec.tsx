@@ -8,7 +8,13 @@ import { formatCurrency } from '../../../util/numberUtils';
 describe('ProductList item ', () => {
   const renderComponent = (product = getUtProduct(), quantity = 2, onButtonClick = () => {}) => {
     return {
-      ...render(<ProductListItem product={product} quantity={quantity} onButtonClicked={onButtonClick} />),
+      ...render(
+        <table>
+          <tbody>
+            <ProductListItem product={product} quantity={quantity} onButtonClicked={onButtonClick} />
+          </tbody>
+        </table>
+      ),
     };
   };
 

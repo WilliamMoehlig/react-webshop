@@ -28,7 +28,7 @@ const Overview: React.FC = () => {
           <li className="d-flex justify-content-between py-3 border-bottom" data-testid="subtotal">
             <strong className="text-muted">Order Subtotal</strong>
             <strong>
-              <span className="money">€&nbsp;{formatCurrency(subtotal)}</span>
+              <span className="money">{formatCurrency(subtotal)}</span>
             </strong>
           </li>
           <li className="d-flex justify-content-between py-3 border-bottom" data-testid="shipping-handling">
@@ -36,9 +36,9 @@ const Overview: React.FC = () => {
             <strong>
               <span className="money money--old">
                 {shippingAndHandling ? (
-                  <span>€&nbsp;{formatCurrency(SHIPPING_AND_HANDLING_COSTS)}</span>
+                  <span>{formatCurrency(SHIPPING_AND_HANDLING_COSTS)}</span>
                 ) : (
-                  <del>€&nbsp;{formatCurrency(SHIPPING_AND_HANDLING_COSTS)}</del>
+                  <del>{formatCurrency(SHIPPING_AND_HANDLING_COSTS)}</del>
                 )}
               </span>
             </strong>
@@ -46,7 +46,7 @@ const Overview: React.FC = () => {
           <li className="d-flex justify-content-between py-3 border-bottom" data-testid="total">
             <strong className="text-muted">Total</strong>
             <h5 className="font-weight-bold">
-              <span className="money">€&nbsp;{formatCurrency(total)}</span>
+              <span className="money">{formatCurrency(total)}</span>
             </h5>
           </li>
         </ul>
