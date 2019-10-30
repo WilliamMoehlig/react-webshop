@@ -5,6 +5,8 @@ import { State } from '../../../models/State';
 import { formatCurrency } from '../../../util/numberUtils';
 import ProductCollection from '../../../models/ProductCollection';
 
+const SHIPPING_AND_HANDLING_COSTS = 10;
+
 const Overview: React.FC = () => {
   const cartProducts = useSelector((state: State<ProductCollection>) => Object.values(state.cartProducts));
 
@@ -12,8 +14,7 @@ const Overview: React.FC = () => {
     (acc: number, product: ProductCollection) => acc + product.price * product.count,
     0
   );
-  const shippingAndHandlingCosts = 10;
-  const shippingAndHandling = cartProducts.length > 0 && subtotal < 40 ? shippingAndHandlingCosts : 0;
+  const shippingAndHandling = cartProducts.length > 0 && subtotal < 40 ? SHIPPING_AND_HANDLING_COSTS : 0;
   const total = subtotal + shippingAndHandling;
 
   return (
@@ -35,9 +36,9 @@ const Overview: React.FC = () => {
             <strong>
               <span className="money money--old">
                 {shippingAndHandling ? (
-                  <span>€&nbsp;{formatCurrency(shippingAndHandlingCosts)}</span>
+                  <span>€&nbsp;{formatCurrency(SHIPPING_AND_HANDLING_COSTS)}</span>
                 ) : (
-                  <del>€&nbsp;{formatCurrency(shippingAndHandlingCosts)}</del>
+                  <del>€&nbsp;{formatCurrency(SHIPPING_AND_HANDLING_COSTS)}</del>
                 )}
               </span>
             </strong>
