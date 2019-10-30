@@ -12,6 +12,4 @@ describe('Checkout module', () => {
     expect(header).toBeInTheDocument();
     expect(header).toHaveTextContent(/basket/i);
   });
-
-  test('it is possible to write a note', () => {});
 });
