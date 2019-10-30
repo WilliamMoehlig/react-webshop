@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
+import { formatCurrency, roundPrice } from '../../../util/numberUtils';
 import { AppState } from '../../../models/AppState';
-import { formatCurrency } from '../../../util/numberUtils';
 import ProductCollection from '../../../models/ProductCollection';
 
 const SHIPPING_AND_HANDLING_COSTS = 10;
@@ -11,7 +11,7 @@ const Overview: React.FC = () => {
   const cartProducts = useSelector((state: AppState) => Object.values(state.cartProducts));
 
   const subtotal = cartProducts.reduce(
-    (acc: number, product: ProductCollection) => acc + product.price * product.count,
+    (acc: number, product: ProductCollection) => acc + roundPrice(product.price) * product.count,
     0
   );
   const shippingAndHandling = cartProducts.length > 0 && subtotal < 40 ? SHIPPING_AND_HANDLING_COSTS : 0;
