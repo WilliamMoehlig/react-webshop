@@ -10,7 +10,9 @@ type ShoppingCartLinkProps = {
 
 const ShoppingCartLink: React.FC<ShoppingCartLinkProps> = ({ className }: ShoppingCartLinkProps) => {
   const products = useSelector((state: State) => state.cartProducts);
-  const count = Object.keys(products).length;
+  const count = Object.values(products).reduce((acc, product) => {
+    return acc + product.count;
+  }, 0);
 
   return (
     <div className={className}>
