@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import ProductListItem from './ProductListItem';
 
-import ProductCollection from '../../../models/ProductCollection';
 import { AppState } from '../../../models/AppState';
 import Product from '../../../models/Product';
 
