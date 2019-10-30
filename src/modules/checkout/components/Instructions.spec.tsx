@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
+import Instructions from './Instructions';
 
 describe('Instructions for seller', () => {
   const renderComponent = () => {
@@ -9,9 +10,10 @@ describe('Instructions for seller', () => {
   };
 
   test('it renders', () => {
-    const { container } = renderComponent();
+    const { getByText } = renderComponent();
 
-    expect(container).toBeInTheDocument();
+    getByText(/instructions for seller/i);
+    getByText(/if you have some information for the seller you can leave them in the box below/i);
   });
 
   test('it allows typing a message in the text area', () => {
