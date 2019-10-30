@@ -12,7 +12,8 @@ const Overview: React.FC = () => {
     (acc: number, product: ProductCollection) => acc + product.price * product.count,
     0
   );
-  const shippingAndHandling = cartProducts.length > 0 && subtotal < 40 ? 10 : 0;
+  const shippingAndHandlingCosts = 10;
+  const shippingAndHandling = cartProducts.length > 0 && subtotal < 40 ? shippingAndHandlingCosts : 0;
   const total = subtotal + shippingAndHandling;
 
   return (
@@ -34,9 +35,9 @@ const Overview: React.FC = () => {
             <strong>
               <span className="money money--old">
                 {shippingAndHandling ? (
-                  <span>€&nbsp;{formatCurrency(10)}</span>
+                  <span>€&nbsp;{formatCurrency(shippingAndHandlingCosts)}</span>
                 ) : (
-                  <del>€&nbsp;{formatCurrency(10)}</del>
+                  <del>€&nbsp;{formatCurrency(shippingAndHandlingCosts)}</del>
                 )}
               </span>
             </strong>
