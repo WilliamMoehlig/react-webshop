@@ -3,6 +3,7 @@ import { render, fireEvent } from '@testing-library/react';
 
 import ProductListItem from './ProductListItem';
 import { getUtProduct } from '../../../../test/helper-objects';
+import { formatCurrency } from '../../../util/numberUtils';
 
 describe('ProductList item ', () => {
   const renderComponent = (product = getUtProduct(), quantity = 2, onButtonClick = () => {}) => {
@@ -32,7 +33,7 @@ describe('ProductList item ', () => {
     expect(imageAlt.getAttribute('src')).toBe(product.image);
     expect(titleHeaderTag).toBe(product.title);
     expect(skuSpan.innerHTML).toBe(product.sku);
-    expect(priceSpan.innerHTML).toContain(product.price);
+    expect(priceSpan.innerHTML).toContain(formatCurrency(product.price));
   });
 
   test('it gets quantity as a property and renders it', () => {

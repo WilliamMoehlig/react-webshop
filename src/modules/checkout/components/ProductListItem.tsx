@@ -1,5 +1,6 @@
 import React from 'react';
 import Product from '../../../models/Product';
+import { formatCurrency } from '../../../util/numberUtils';
 
 interface ProductListItemProps {
   product: Product;
@@ -20,7 +21,7 @@ function ProductListItem({ product, quantity, onButtonClicked }: ProductListItem
       </th>
       <td className="border-0 align-middle">
         <strong>
-          <span className="money">€&nbsp;{(Math.round(product.price * 100) / 100).toFixed(2)}</span>
+          <span className="money">€&nbsp;{formatCurrency(product.price)}</span>
         </strong>
       </td>
       <td className="border-0 align-middle">
