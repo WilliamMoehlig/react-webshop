@@ -1,6 +1,7 @@
 import React from 'react';
 import Product from '../../../models/Product';
 import { formatCurrency } from '../../../util/numberUtils';
+import ProductImage from '../../../components/ProductImage';
 
 interface ProductListItemProps {
   product: Product;
@@ -17,7 +18,7 @@ const ProductListItem: React.FC<ProductListItemProps> = ({
     <tr>
       <th scope="row" className="border-0">
         <div className="p-2">
-          <img src={product.image} alt={product.title} width="70" className="img-fluid rounded shadow-sm" />
+          <ProductImage product={product} width="70" className="img-fluid rounded shadow-sm" />
           <div className="ml-3 d-inline-block align-middle">
             <h5 className="mb-0">{product.title}</h5>
             <span className="text-muted font-weight-normal font-italic d-block">{product.sku}</span>
