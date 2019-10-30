@@ -3,22 +3,17 @@ import { useSelector } from 'react-redux';
 
 import { State } from '../../../models/State';
 import { formatCurrency } from '../../../util/numberUtils';
-import Product from '../../../models/Product';
+import ProductCollection from '../../../models/ProductCollection';
 
 const Overview: React.FC = () => {
-  const cartProducts = useSelector((state: State) => Object.values(state.cartProducts));
+  const cartProducts = useSelector((state: State<ProductCollection>) => Object.values(state.cartProducts));
 
-  function calcSubtotal(): number {
-    return cartProducts.reduce((acc: number, product: Product) => acc + product.price, 0);
-  }
-
-  function calcShippingAndHandling(): number {
-    return cartProducts.length > 0 && calcSubtotal() < 40 ? 10 : 0;
-  }
-
-  function calcTotal(): number {
-    return calcSubtotal() + calcShippingAndHandling();
-  }
+  const subtotal = cartProducts.reduce(
+    (acc: number, product: ProductCollection) => acc + product.price * product.count,
+    0
+  );
+  const shippingAndHandling = cartProducts.length > 0 && subtotal < 40 ? 10 : 0;
+  const total = subtotal + shippingAndHandling;
 
   return (
     <>
@@ -31,14 +26,14 @@ const Overview: React.FC = () => {
           <li className="d-flex justify-content-between py-3 border-bottom" data-testid="subtotal">
             <strong className="text-muted">Order Subtotal</strong>
             <strong>
-              <span className="money">€&nbsp;{formatCurrency(calcSubtotal())}</span>
+              <span className="money">€&nbsp;{formatCurrency(subtotal)}</span>
             </strong>
           </li>
           <li className="d-flex justify-content-between py-3 border-bottom" data-testid="shipping-handling">
             <strong className="text-muted">Shipping and handling (free above € 40)</strong>
             <strong>
               <span className="money money--old">
-                {calcShippingAndHandling() ? (
+                {shippingAndHandling ? (
                   <span>€&nbsp;{formatCurrency(10)}</span>
                 ) : (
                   <del>€&nbsp;{formatCurrency(10)}</del>
@@ -49,7 +44,7 @@ const Overview: React.FC = () => {
           <li className="d-flex justify-content-between py-3 border-bottom" data-testid="total">
             <strong className="text-muted">Total</strong>
             <h5 className="font-weight-bold">
-              <span className="money">€&nbsp;{formatCurrency(calcTotal())}</span>
+              <span className="money">€&nbsp;{formatCurrency(total)}</span>
             </h5>
           </li>
         </ul>

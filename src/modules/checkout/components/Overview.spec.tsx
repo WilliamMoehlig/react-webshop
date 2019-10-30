@@ -2,7 +2,7 @@ import React from 'react';
 import { within } from '@testing-library/react';
 import Overview from './Overview';
 import { renderWithRedux } from '../../../../test/render-utils';
-import Product from '../../../models/Product';
+import ProductCollection from '../../../models/ProductCollection';
 
 describe('Overview', () => {
   function renderComponent(initialState = {}) {
@@ -40,17 +40,19 @@ describe('Overview', () => {
   });
 
   test('it renders the correct prices when subtotal is lower than € 40', () => {
-    const product1: Product = {
+    const product1: ProductCollection = {
       id: 1,
       sku: '12345',
       title: 'Zwierige-Pret-Boulet',
       price: 3.9,
+      count: 1,
     };
-    const product2: Product = {
+    const product2: ProductCollection = {
       id: 2,
       sku: '54321',
       title: 'Hollands Kippetje De Luxe',
       price: 3.0,
+      count: 2,
     };
     const initialState = {
       cartProducts: {
@@ -62,7 +64,7 @@ describe('Overview', () => {
 
     const subtotal = getByTestId('subtotal');
     const { getByText: getByTextWithinSubtotal } = within(subtotal);
-    getByTextWithinSubtotal('€ 6,90');
+    getByTextWithinSubtotal('€ 9,90');
 
     const shippingHandling = getByTestId('shipping-handling');
     const { getByText: getByTextWithinShippingHandling, queryByText: queryByTextWithinShippingHandling } = within(
@@ -75,21 +77,23 @@ describe('Overview', () => {
 
     const total = getByTestId('total');
     const { getByText: getByTextWithinTotal } = within(total);
-    getByTextWithinTotal('€ 16,90');
+    getByTextWithinTotal('€ 19,90');
   });
 
   test('it renders the correct prices when subtotal is higher than € 40', () => {
-    const product1: Product = {
+    const product1: ProductCollection = {
       id: 1,
       sku: '12345',
       title: 'Ultra Super Mega Maxi Zwierige-Pret-Boulet',
       price: 30.9,
+      count: 1,
     };
-    const product2: Product = {
+    const product2: ProductCollection = {
       id: 2,
       sku: '54321',
       title: 'Ultra Super Mega Maxi Hollands Kippetje De Luxe',
       price: 30.0,
+      count: 2,
     };
     const initialState = {
       cartProducts: {
@@ -101,7 +105,7 @@ describe('Overview', () => {
 
     const subtotal = getByTestId('subtotal');
     const { getByText: getByTextWithinSubtotal } = within(subtotal);
-    getByTextWithinSubtotal('€ 60,90');
+    getByTextWithinSubtotal('€ 90,90');
 
     const shippingHandling = getByTestId('shipping-handling');
     const { getByText: getByTextWithinShippingHandling } = within(shippingHandling);
@@ -110,6 +114,6 @@ describe('Overview', () => {
 
     const total = getByTestId('total');
     const { getByText: getByTextWithinTotal } = within(total);
-    getByTextWithinTotal('€ 60,90');
+    getByTextWithinTotal('€ 90,90');
   });
 });
