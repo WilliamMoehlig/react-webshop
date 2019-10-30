@@ -7,6 +7,7 @@ import { addProduct } from '../../../store/actions/productActions';
 import { formatCurrency, calcDiscount } from '../../../util/numberUtils';
 import IProduct from '../../../models/Product';
 import Button from '../../../components/Button';
+import Price from '../../../components/Price';
 import StockedLabel from '../../../components/StockedLabel';
 
 import './Product.scss';
@@ -34,12 +35,7 @@ const Product: React.FC<ProductProps> = ({ product }: ProductProps) => {
           <strong>SKU:</strong> {product.sku}
         </li>
         <li className="list-group-item">
-          <span className="money money--new">{formatCurrency(product.price)}</span>
-          {product.basePrice && product.basePrice > product.price && (
-            <span className="money money--old">
-              <del>{formatCurrency(product.basePrice)}</del>
-            </span>
-          )}
+          <Price newPrice={product.price} oldPrice={product.basePrice} />
         </li>
       </ul>
       <li className="list-group-item">
