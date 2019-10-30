@@ -4,10 +4,14 @@ import api from './api';
 
 import Product from '../models/Product';
 
-export async function getProducts({ limit = 12, page = 1, sort = 'title', order = 'asc' } = {}): Promise<{
+export interface ProductsResponse {
   products: Product[];
   total: number;
-}> {
+}
+
+export async function getProducts({ limit = 12, page = 1, sort = 'title', order = 'asc' } = {}): Promise<
+  ProductsResponse
+> {
   const { data, headers } = await api.get('/products', {
     params: {
       _limit: limit,

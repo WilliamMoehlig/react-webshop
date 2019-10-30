@@ -1,13 +1,14 @@
 import React from 'react';
-import { render, within } from '@testing-library/react';
+import { within, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
 import Product from './Product';
 import IProduct from '../../../models/Product';
+import { renderWithRedux } from '../../../../test/render-utils';
 
 describe('Product component', () => {
-  function renderComponent({ product }) {
-    const result = render(<Product product={product} />);
+  function renderComponent({ product, initialState = {} }) {
+    const result = renderWithRedux(<Product product={product} />, { initialState });
 
     return {
       ...result,
@@ -122,5 +123,17 @@ describe('Product component', () => {
 
     const stockBadge = getByText(/in stock/i);
     expect(stockBadge).toHaveClass('badge', 'badge-success');
+  });
+
+  it('should be able to add a product on click to state (redux)', () => {
+    const product = generateProduct();
+
+    const { getByRole, store } = renderComponent({ product });
+    const button = getByRole('button');
+
+    fireEvent.click(button);
+    fireEvent.click(button);
+
+    expect(store.getState()).toHaveProperty('cartProducts', { [product.id]: { ...product, count: 2 } });
   });
 });
