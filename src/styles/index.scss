@@ -1,5 +1,5 @@
 // Uncomment if you want bootstrap
-@import "bootstrap-scss";
+@import 'bootstrap-scss';
 
 html,
 body {
@@ -9,4 +9,15 @@ body {
 .main {
   margin-top: 20px;
   height: calc(100% -20px);
+}
+
+.money {
+  &--old {
+    del {
+      color: grey;
+    }
+  }
+  &--new {
+    color: #28a745;
+  }
 }
