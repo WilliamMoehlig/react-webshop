@@ -58,14 +58,11 @@ describe('ProductList item ', () => {
   test('it calls the delete function on button click that has an icon', () => {
     const mockFunction = jest.fn();
     const product = getUtProduct();
-    const { getByLabelText, container } = renderComponent(product, 2, mockFunction);
+    const { getByLabelText } = renderComponent(product, 2, mockFunction);
 
     const button = getByLabelText(/remove/i);
-    const iTags = container.getElementsByTagName('i');
-    const icon = Object.values(iTags).find(t => t.className === 'fa fa-trash');
 
     fireEvent.click(button);
     expect(mockFunction).toBeCalled();
-    expect(icon).toBeInTheDocument();
   });
 });
