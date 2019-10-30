@@ -11,6 +11,10 @@ jest.mock('./components/NotificationCount', () =>
   jest.fn().mockReturnValue(<div data-testid="notification-count-mock" />)
 );
 
+jest.mock('./components/ShoppingCartLink', () =>
+  jest.fn().mockReturnValue(<div data-testid="shopping-cart-link-mock" />)
+);
+
 describe('NavBar component', () => {
   function render(route, currentUser) {
     const value = {
@@ -52,7 +56,7 @@ describe('NavBar component', () => {
     const { getByAltText, getByText } = within(navbar);
 
     const logo = getByAltText(/bootcamp logo/i);
-    expect(logo).toHaveAttribute('src', expect.stringMatching(/public(\/|\/\/)images(\/|\/\/)js-logo.png/));
+    expect(logo).toHaveAttribute('src', expect.stringMatching(/public(\/|\\)images(\/|\\)js-logo.png/));
 
     const link = getByText(/bootcamp/i);
     expect(link).toHaveClass('navbar-brand');
@@ -85,6 +89,27 @@ describe('NavBar component', () => {
     expect(todosNavLink).toHaveClass('active');
   });
 
+  test('it renders a navlink to products', () => {
+    const { getComponent, history } = render();
+
+    const { getByText } = within(getComponent());
+
+    const productsNavLink = getByText(/shop/i);
+    expect(productsNavLink).toHaveClass('nav-link');
+    expect(productsNavLink).not.toHaveClass('active');
+
+    fireEvent.click(productsNavLink);
+
+    expect(history).toHaveProperty(
+      'location',
+      toBeALocation({
+        pathname: '/products',
+        state: null,
+      })
+    );
+    expect(productsNavLink).toHaveClass('active');
+  });
+
   describe('when anonymous', () => {
     test('it renders a login link', () => {
       const { getComponent, history, queryByText } = render('/not-home');
@@ -102,6 +127,11 @@ describe('NavBar component', () => {
     test('guard it does not render the notification count', () => {
       const { queryByTestId } = render('/not-home');
       expect(queryByTestId('notification-count-mock')).toBeNull();
+    });
+
+    test('it renders a shopping cart link', () => {
+      const { queryByTestId } = render('/');
+      expect(queryByTestId('shopping-cart-link-mock')).toBeInTheDocument();
     });
   });
 
@@ -133,6 +163,11 @@ describe('NavBar component', () => {
         },
         {}
       );
+    });
+
+    test('it renders a shopping cart link', () => {
+      const { queryByTestId } = render('/');
+      expect(queryByTestId('shopping-cart-link-mock')).toBeInTheDocument();
     });
   });
 });

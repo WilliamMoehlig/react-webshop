@@ -1,0 +1,21 @@
+.product-grid .product-discount-label {
+  color: #fff;
+  background-color: #16a085;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 45px;
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  transition: all 0.3s;
+  padding-left: 6px;
+}
+.product-grid .product-discount-label {
+  left: auto;
+  right: 10px;
+  background-color: #d7292a;
+}

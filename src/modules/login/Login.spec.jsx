@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
 import { fireEvent } from '@testing-library/react';
 
@@ -10,7 +11,7 @@ import { renderWithRouter } from '../../../test/render-utils';
 jest.mock('./services/authService');
 
 describe('Login Module', () => {
-  function renderComponent(initialUser) {
+  function renderComponent(initialUser, initRoute = { route: '/login' }) {
     const identityProviderValue = {
       current: initialUser,
     };
@@ -21,9 +22,9 @@ describe('Login Module', () => {
 
     const result = renderWithRouter(
       <IdentityContext.Provider value={identityProviderValue}>
-        <Login />
+        <Route path="/login" component={Login} />
       </IdentityContext.Provider>,
-      { route: 'not-home' }
+      initRoute
     );
 
     return {
@@ -124,6 +125,18 @@ describe('Login Module', () => {
       expect(identityProviderValue).toHaveProperty('current', givenUsername);
 
       expect(history).toHaveProperty('location', toBeALocation());
+    });
+
+    test('it redirects back to from path if logged in', () => {
+      const initialRoute = { pathname: '/todos', search: '?y', hash: '#x' };
+      const route = {
+        pathname: '/login',
+        state: { from: initialRoute },
+      };
+
+      const { history } = renderComponent('bob', { route });
+
+      expect(history).toHaveProperty('location', expect.objectContaining(initialRoute));
     });
   });
 });
