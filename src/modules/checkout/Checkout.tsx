@@ -4,7 +4,7 @@ import ProductList from './components/ProductList';
 import Instructions from './components/Instructions';
 import Overview from './components/Overview';
 
-function Checkout() {
+const Checkout: React.FC = () => {
   return (
     <div className="container-fluid">
       <h2>Basket</h2>
@@ -23,6 +23,6 @@ function Checkout() {
       </div>
     </div>
   );
-}
+};
 
 export default Checkout;

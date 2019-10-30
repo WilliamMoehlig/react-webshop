@@ -9,7 +9,7 @@ import Product from '../../../models/Product';
 
 import { deleteProduct } from '../../../store/actions/productActions';
 
-export default function ProductList() {
+const ProductList: React.FC = () => {
   const dispatch = useDispatch();
 
   const products = useSelector((state: State<ProductCollection>) => Object.values(state.cartProducts));
@@ -48,4 +48,6 @@ export default function ProductList() {
       </tbody>
     </table>
   );
-}
+};
+
+export default ProductList;
