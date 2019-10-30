@@ -17,6 +17,7 @@ function productReducer(previousState: Record<number, ProductCollection> = {}, a
     }
     case DELETE_PRODUCT: {
       const { payload: id } = action as ActionWithPayload<number>;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { [id]: _, ...wantToKeep } = previousState;
 
       return {
