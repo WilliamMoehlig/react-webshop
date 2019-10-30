@@ -4,7 +4,7 @@ import Product from '../../../models/Product';
 interface ProductListItemProps {
   product: Product;
   quantity: number;
-  onButtonClicked: () => void;
+  onButtonClicked: (id) => void;
 }
 function ProductListItem({ product, quantity, onButtonClicked }: ProductListItemProps) {
   return (
@@ -32,7 +32,7 @@ function ProductListItem({ product, quantity, onButtonClicked }: ProductListItem
           className="btn btn-link btn-sm p-0 text-dark"
           aria-label="Remove"
           style={{ verticalAlign: 'top' }}
-          onClick={onButtonClicked}
+          onClick={() => onButtonClicked(product.id)}
         >
           <i className="fa fa-trash" />
         </button>
