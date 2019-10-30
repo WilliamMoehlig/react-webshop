@@ -7,6 +7,7 @@ import { addProduct } from '../../../store/actions/productActions';
 import { formatCurrency, calcDiscount } from '../../../util/numberUtils';
 import IProduct from '../../../models/Product';
 import Button from '../../../components/Button';
+import StockedLabel from '../../../components/StockedLabel';
 
 import './Product.scss';
 
@@ -43,11 +44,7 @@ const Product: React.FC<ProductProps> = ({ product }: ProductProps) => {
       </ul>
       <li className="list-group-item">
         <h5 className="mb-0">
-          {product.stocked ? (
-            <span className="badge badge-success">In Stock</span>
-          ) : (
-            <span className="badge badge-danger">Out of Stock</span>
-          )}
+          <StockedLabel stocked={product.stocked} />
         </h5>
       </li>
       <div className="card-body">
