@@ -5,11 +5,11 @@ import classNames from 'classnames';
 import Product from './components/Product';
 import { getProducts } from '../../api/productApi';
 
-type ProductProps = {
+type ProductsProps = {
   limit?: number;
 };
 
-const Products: React.FC<ProductProps> = ({ limit = 12 }: ProductProps) => {
+const Products: React.FC<ProductsProps> = ({ limit = 12 }: ProductsProps) => {
   const [pagedProducts, setPagedProducts] = useState();
 
   const { search } = useLocation();
