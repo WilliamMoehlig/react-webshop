@@ -39,7 +39,7 @@ describe('Product component', () => {
     const sku = within(list).getByText(product.sku);
     expect(within(sku).queryByText(/sku:/i)).toBeInTheDocument();
 
-    const money = getByText(product.price.toFixed(2).replace('.', ','));
+    const money = getByText(`€ ${product.price.toFixed(2).replace('.', ',')}`);
     expect(money).toHaveClass('money', 'money--new');
 
     const stockBadge = getByText(/out of stock/i);
@@ -90,7 +90,7 @@ describe('Product component', () => {
     };
     const { getByText, container } = renderComponent({ product });
 
-    const money = getByText(product.basePrice.toFixed(2).replace('.', ','));
+    const money = getByText(`€ ${product.basePrice.toFixed(2).replace('.', ',')}`);
     expect(money).toHaveProperty('tagName', expect.stringMatching(/del/i));
     expect(money.parentElement).toHaveClass('money', 'money--old');
 
