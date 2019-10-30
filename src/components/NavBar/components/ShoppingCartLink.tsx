@@ -2,15 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { State } from '../../../models/State';
-import ProductCollection from '../../../models/ProductCollection';
+import { AppState } from '../../../models/AppState';
 
 type ShoppingCartLinkProps = {
   className?: string;
 };
 
 const ShoppingCartLink: React.FC<ShoppingCartLinkProps> = ({ className }: ShoppingCartLinkProps) => {
-  const products = useSelector((state: State<ProductCollection>) => state.cartProducts);
+  const products = useSelector((state: AppState) => state.cartProducts);
   const count = Object.values(products).reduce((acc, product) => {
     return acc + product.count;
   }, 0);
