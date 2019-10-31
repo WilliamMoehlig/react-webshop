@@ -33,7 +33,7 @@ export function App({ initialUser }) {
       <div className="container-fluid main">
         <Switch>
           <Route path="/login" component={Login} />
-          <ProtectedRoute path="/logout" component={Logout} />
+          <Route path="/logout" component={Logout} />
           <ProtectedRoute path="/todos" component={Todos} />
           <ProtectedRoute path="/checkout" component={Checkout} />
           <Route path="/products" component={Products} />
