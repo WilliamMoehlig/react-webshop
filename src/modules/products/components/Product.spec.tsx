@@ -5,6 +5,7 @@ import '@testing-library/jest-dom/extend-expect';
 import Product from './Product';
 import IProduct from '../../../models/Product';
 import { renderWithRedux } from '../../../../test/render-utils';
+import { getUtProduct as generateProduct } from '../../../../test/helper-objects';
 
 describe('Product component', () => {
   function renderComponent({ product, initialState = {} }) {
@@ -12,15 +13,6 @@ describe('Product component', () => {
 
     return {
       ...result,
-    };
-  }
-
-  function generateProduct(): IProduct {
-    return {
-      id: 1,
-      title: 'test',
-      sku: '639538639-5',
-      price: 78.193,
     };
   }
 
