@@ -9,7 +9,8 @@
     "clean": "rimraf dist",
     "lint": "eslint \"src/**/*.{js,ts,jsx,tsx}\"",
     "start": "webpack-dev-server --open",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "author": "",
   "license": "MIT",
@@ -111,6 +112,13 @@
     "watchPlugins": [
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "src/**/*.js",
+      "src/**/*.tsx",
+      "src/**/*.jsx",
+      "!test"
     ]
   }
 }
