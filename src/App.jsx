@@ -11,7 +11,6 @@ import Home from './modules/home/Home';
 import NotFound from './pages/NotFound';
 import NavBar from './components/NavBar/NavBar';
 import Logout from './modules/logout/Logout';
-import Users from './modules/users/Users';
 import Todos from './modules/todos/Todos';
 import ProtectedRoute from './components/ProtectedRoute';
 import Checkout from './modules/checkout/Checkout';
@@ -35,7 +34,6 @@ export function App({ initialUser }) {
         <Switch>
           <Route path="/login" component={Login} />
           <ProtectedRoute path="/logout" component={Logout} />
-          <ProtectedRoute path="/users" component={Users} />
           <ProtectedRoute path="/todos" component={Todos} />
           <ProtectedRoute path="/checkout" component={Checkout} />
           <Route path="/products" component={Products} />
