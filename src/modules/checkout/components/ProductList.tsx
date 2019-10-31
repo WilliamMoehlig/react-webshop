@@ -3,16 +3,15 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import ProductListItem from './ProductListItem';
 
-import ProductCollection from '../../../models/ProductCollection';
-import { State } from '../../../models/State';
+import { AppState } from '../../../models/AppState';
 import Product from '../../../models/Product';
 
 import { deleteProduct } from '../../../store/actions/productActions';
 
-export default function ProductList() {
+const ProductList: React.FC = () => {
   const dispatch = useDispatch();
 
-  const products = useSelector((state: State<ProductCollection>) => Object.values(state.cartProducts));
+  const products = useSelector((state: AppState) => Object.values(state.cartProducts));
 
   const onProductRemoveHandler = (id: number) => {
     dispatch(deleteProduct(id));
@@ -48,4 +47,6 @@ export default function ProductList() {
       </tbody>
     </table>
   );
-}
+};
+
+export default ProductList;

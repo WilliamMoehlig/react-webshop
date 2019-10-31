@@ -19,7 +19,6 @@ function MockHome() {
 }
 
 jest.mock('./modules/home/Home', () => () => <MockHome />);
-jest.mock('./modules/users/Users', () => () => <div data-testid="users-module" />);
 jest.mock('./modules/todos/Todos', () => () => <div data-testid="todos-module" />);
 jest.mock('./modules/products/Products', () => () => <div data-testid="products-module" />);
 jest.mock('./modules/login/Login', () => () => <div data-testid="login-module" />);
@@ -86,14 +85,6 @@ describe('App', () => {
       guardAgainstRenderingPageNotFound();
     });
 
-    test('it renders the users module on /users ', () => {
-      const { getByTestId, guardAgainstRenderingPageNotFound } = render('/users', 'bob');
-
-      getByTestId('users-module');
-
-      guardAgainstRenderingPageNotFound();
-    });
-
     test('it renders the todos module on /todos ', () => {
       const { getByTestId, guardAgainstRenderingPageNotFound } = render('/todos', 'bob');
 
@@ -138,17 +129,6 @@ describe('App', () => {
     test('protectedRoute /logout renders from path if logged in', () => {
       const { queryByTestId } = render('/logout', 'bob');
       expect(queryByTestId('logout-module')).toBeInTheDocument();
-    });
-
-    test('protectedRoute /users renders login if not logged in', () => {
-      const { getByTestId, queryByTestId } = render('/users', null);
-      getByTestId('login-module');
-      expect(queryByTestId('users-module')).not.toBeInTheDocument();
-    });
-
-    test('protectedRoute /users renders from path if logged in', () => {
-      const { queryByTestId } = render('/users', 'bob');
-      expect(queryByTestId('users-module')).toBeInTheDocument();
     });
 
     test('protectedRoute /checkout renders path if logged in', () => {

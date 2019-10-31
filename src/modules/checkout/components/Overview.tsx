@@ -1,20 +1,21 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { State } from '../../../models/State';
-import { formatCurrency } from '../../../util/numberUtils';
+import { formatCurrency, roundPrice } from '../../../util/numberUtils';
+import { AppState } from '../../../models/AppState';
 import ProductCollection from '../../../models/ProductCollection';
 
-const SHIPPING_AND_HANDLING_COSTS = 10;
+const SHIPPING_COSTS = 10;
+const SHIPPING_FREE_FROM = 40;
 
 const Overview: React.FC = () => {
-  const cartProducts = useSelector((state: State<ProductCollection>) => Object.values(state.cartProducts));
+  const cartProducts = useSelector((state: AppState) => Object.values(state.cartProducts));
 
   const subtotal = cartProducts.reduce(
-    (acc: number, product: ProductCollection) => acc + product.price * product.count,
+    (acc: number, product: ProductCollection) => acc + roundPrice(product.price) * product.count,
     0
   );
-  const shippingAndHandling = cartProducts.length > 0 && subtotal < 40 ? SHIPPING_AND_HANDLING_COSTS : 0;
+  const shippingAndHandling = cartProducts.length > 0 && subtotal < SHIPPING_FREE_FROM ? SHIPPING_COSTS : 0;
   const total = subtotal + shippingAndHandling;
 
   return (
@@ -32,13 +33,13 @@ const Overview: React.FC = () => {
             </strong>
           </li>
           <li className="d-flex justify-content-between py-3 border-bottom" data-testid="shipping-handling">
-            <strong className="text-muted">Shipping and handling (free above € 40)</strong>
+            <strong className="text-muted">Shipping and handling (free above € {SHIPPING_FREE_FROM})</strong>
             <strong>
               <span className="money money--old">
                 {shippingAndHandling ? (
-                  <span>{formatCurrency(SHIPPING_AND_HANDLING_COSTS)}</span>
+                  <span>{formatCurrency(SHIPPING_COSTS)}</span>
                 ) : (
-                  <del>{formatCurrency(SHIPPING_AND_HANDLING_COSTS)}</del>
+                  <del>{formatCurrency(SHIPPING_COSTS)}</del>
                 )}
               </span>
             </strong>
