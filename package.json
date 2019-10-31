@@ -118,7 +118,8 @@
       "src/**/*.js",
       "src/**/*.tsx",
       "src/**/*.jsx",
-      "!test"
+      "!test",
+      "!src/index.jsx"
     ]
   }
 }
