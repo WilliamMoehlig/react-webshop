@@ -120,17 +120,6 @@ describe('App', () => {
       expect(queryByTestId('todos-module')).toBeInTheDocument();
     });
 
-    test('protectedRoute /logout renders login if not logged in', () => {
-      const { getByTestId, queryByTestId } = render('/logout', null);
-      getByTestId('login-module');
-      expect(queryByTestId('logout-module')).not.toBeInTheDocument();
-    });
-
-    test('protectedRoute /logout renders from path if logged in', () => {
-      const { queryByTestId } = render('/logout', 'bob');
-      expect(queryByTestId('logout-module')).toBeInTheDocument();
-    });
-
     test('protectedRoute /checkout renders path if logged in', () => {
       const { getByTestId, guardAgainstRenderingPageNotFound } = render('/checkout', 'unclebob');
       guardAgainstRenderingPageNotFound();
