@@ -2,7 +2,7 @@ import { createContext } from 'react';
 
 const IdentityContext = createContext({
   current: undefined,
-  setCurrent: () => {},
+  setCurrent: undefined,
 });
 
 export default IdentityContext;
