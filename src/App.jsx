@@ -45,6 +45,7 @@ export function App({ initialUser }) {
   );
 }
 
+/* istanbul ignore next */
 function RuntimeApp() {
   return (
     <Provider store={store}>
